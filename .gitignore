@@ -12,3 +12,4 @@ imgui.ini
 Log.log
 *.exe
 *.dll
+*.gen.*
