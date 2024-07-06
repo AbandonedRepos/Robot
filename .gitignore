@@ -1,0 +1,14 @@
+/out
+bin/
+/build/
+/.vs
+.idea/
+CMakeSettings.json
+resources/saves/
+resources/saves2/
+errorLogs.txt
+/log/
+imgui.ini
+Log.log
+*.exe
+*.dll
