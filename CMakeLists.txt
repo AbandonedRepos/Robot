@@ -15,6 +15,8 @@ file(GLOB_RECURSE EngineSources
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
 )
 
+add_subdirectory(deps)
+
 # Function to create source groups based on file directory structure
 function(GroupSources curdir sources)
     foreach(source ${${sources}})
@@ -48,15 +50,9 @@ endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
-find_package(GLEW REQUIRED)
-find_package(Bullet CONFIG REQUIRED)
-find_package(OpenAL CONFIG REQUIRED)
-find_package(spdlog CONFIG REQUIRED)
-find_package(assimp CONFIG REQUIRED)
-add_compile_definitions(GLM_ENABLE_EXPERIMENTAL)
+#find_package(GLEW REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC glfw GLEW::GLEW glm imgui assimp::assimp OpenAL::OpenAL ${BULLET_LIBRARIES} stb_image spdlog::spdlog_header_only glad glui gl2d enet entt)
-
+target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers)
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 install(DIRECTORY assets/ DESTINATION bin/assets)

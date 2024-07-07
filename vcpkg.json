@@ -1,12 +1,4 @@
 {
   "dependencies": [
-    "bullet3",
-    "glew",
-    "openal-soft",
-    "spdlog",
-    {
-      "name": "assimp",
-      "version>=": "5.2.5"
-    }
   ]
 }
