@@ -52,13 +52,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/sr
 
 #find_package(GLEW REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers)
+target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk)
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 install(DIRECTORY assets/ DESTINATION bin/assets)
 
 if(WIN32)
 	target_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32) 
+    #define directx
+    target_compile_definitions(${PROJECT_NAME} PUBLIC DIRECTX)
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED)
+target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED USE_VOLK VULKAN_ENABLED)
