@@ -13,3 +13,6 @@ Log.log
 *.exe
 *.dll
 *.gen.*
+*.obj
+__pycache__/
+*.lib

@@ -65,4 +65,4 @@ if(WIN32)
 	target_compile_definitions(${PROJECT_NAME} PUBLIC _WIN32) 
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC RESOURCES_PATH="./resources/")
+target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED)
