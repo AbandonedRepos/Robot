@@ -50,9 +50,12 @@ endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
-#find_package(GLEW REQUIRED)
+find_package(directx-headers CONFIG REQUIRED)
+find_package(d3d12-memory-allocator CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
+find_package(graphite2 REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk)
+target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk Microsoft::DirectX-Headers unofficial::D3D12MemoryAllocator ZLIB::ZLIB dxgi d3d12 d3dcompiler graphite2)
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 install(DIRECTORY assets/ DESTINATION bin/assets)
