@@ -15,6 +15,7 @@ file(GLOB_RECURSE EngineSources
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
 )
 
+set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
 add_subdirectory(deps)
 
 # Function to create source groups based on file directory structure
@@ -53,7 +54,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/sr
 find_package(directx-headers CONFIG REQUIRED)
 find_package(d3d12-memory-allocator CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
-find_package(graphite2 REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk Microsoft::DirectX-Headers unofficial::D3D12MemoryAllocator ZLIB::ZLIB dxgi d3d12 d3dcompiler graphite2)
 
