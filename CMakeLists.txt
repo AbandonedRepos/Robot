@@ -31,7 +31,7 @@ endfunction()
 # Group the sources
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR}/src EngineSources)
 
-file(GLOB_RECURSE EngineSources ${CMAKE_CURRENT_SOURCE_DIR}/src/**.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/**.h)
+file(GLOB_RECURSE EngineSources ${CMAKE_CURRENT_SOURCE_DIR}/src/**.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/**.h ${CMAKE_CURRENT_SOURCE_DIR}/src/**.inl)
 
 # add platform specific flags
 if(WIN32)
@@ -55,7 +55,13 @@ find_package(directx-headers CONFIG REQUIRED)
 find_package(d3d12-memory-allocator CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk Microsoft::DirectX-Headers unofficial::D3D12MemoryAllocator ZLIB::ZLIB dxgi d3d12 d3dcompiler graphite2)
+target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk Microsoft::DirectX-Headers unofficial::D3D12MemoryAllocator ZLIB::ZLIB dxgi d3d12 d3dcompiler graphite2 
+#embree
+#Detour
+#DetourCrowd
+Recast
+vhacd
+)
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 install(DIRECTORY assets/ DESTINATION bin/assets)
