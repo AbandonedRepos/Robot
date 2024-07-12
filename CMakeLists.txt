@@ -28,6 +28,9 @@ function(GroupSources curdir sources)
     endforeach()
 endfunction()
 
+set(DEBUG_ENABLED OFF CACHE BOOL "enables debugging *features* and debug-only code, which is intended to give *users* extra debugging information for their game development.")
+set(DEV_ENABLED OFF CACHE BOOL "Enable dev mode for those working on the engine")
+
 # Group the sources
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR}/src EngineSources)
 
@@ -75,4 +78,17 @@ if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PUBLIC DIRECTX)
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED USE_VOLK VULKAN_ENABLED BROTLI_ENABLED)
+target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED USE_VOLK VULKAN_ENABLED BROTLI_ENABLED MINIZIP_ENABLED)
+
+if (DEBUG_ENABLED)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC DEBUG_ENABLED)
+endif()
+
+if (DEV_ENABLED)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC DEV_ENABLED)
+else()
+    target_compile_definitions(${PROJECT_NAME} PUBLIC NDEBUG)
+endif(
+        
+    )
+
