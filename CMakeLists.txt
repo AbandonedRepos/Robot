@@ -54,13 +54,16 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/sr
 find_package(directx-headers CONFIG REQUIRED)
 find_package(d3d12-memory-allocator CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
+find_package(zstd CONFIG REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC OpenXR OpenXR::headers volk Microsoft::DirectX-Headers unofficial::D3D12MemoryAllocator ZLIB::ZLIB dxgi d3d12 d3dcompiler graphite2 
 #embree
-#Detour
-#DetourCrowd
 Recast
 vhacd
+zstd::libzstd
+brotlicommon
+brotlidec
+brotlienc
 )
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
@@ -72,4 +75,4 @@ if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PUBLIC DIRECTX)
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED USE_VOLK VULKAN_ENABLED)
+target_compile_definitions(${PROJECT_NAME} PUBLIC TYPED_METHOD_BIND TOOLS_ENABLED USE_VOLK VULKAN_ENABLED BROTLI_ENABLED)
