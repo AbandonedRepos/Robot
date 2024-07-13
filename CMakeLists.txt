@@ -40,8 +40,8 @@ option(threads "Enable threading support" ON)
 option(deprecated "Enable compatibility code for deprecated and removed features" ON)
 set_property(CACHE deprecated PROPERTY STRINGS ON OFF)
 
-option(precision "Set the floating-point precision level" "single" "single;double")
-set_property(CACHE precision PROPERTY STRINGS single double)
+#option(precision "Set the floating-point precision level" "single" "single;double")
+#set_property(CACHE precision PROPERTY STRINGS single double)
 
 option(minizip "Enable ZIP archive support using minizip" ON)
 
@@ -192,4 +192,8 @@ endif()
 
 if(xaudio2)
     target_compile_definitions(${PROJECT_NAME} PUBLIC XAUDIO2_ENABLED)
+endif()
+
+if(DISABLE_3D)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC _3D_DISABLED)
 endif()
