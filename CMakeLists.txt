@@ -20,17 +20,7 @@ file(GLOB_RECURSE EngineSources
 )
 
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
-add_subdirectory(deps)
 
-# Function to create source groups based on file directory structure
-function(GroupSources curdir sources)
-    foreach(source ${${sources}})
-        file(RELATIVE_PATH relative_file ${curdir} ${source})
-        get_filename_component(dir ${relative_file} PATH)
-        string(REPLACE "/" "\\" group ${dir})
-        source_group(${group} FILES ${source})
-    endforeach()
-endfunction()
 
 option(DEBUG_ENABLED "enables debugging *features* and debug-only code, which is intended to give *users* extra debugging information for their game development." OFF)
 option(DEV_ENABLED "Enable dev mode for those working on the engine" OFF)
@@ -123,26 +113,11 @@ option(BUILTIN_XATLAS "Use the built-in xatlas library" ON)
 option(BUILTIN_ZLIB "Use the built-in zlib library" ON)
 option(BUILTIN_ZSTD "Use the built-in Zstd library" ON)
 
-# Group the sources
-GroupSources(${CMAKE_CURRENT_SOURCE_DIR}/src EngineSources)
+add_executable(${PROJECT_NAME} ${EngineSources})
 
-file(GLOB_RECURSE EngineSources ${CMAKE_CURRENT_SOURCE_DIR}/src/**.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/**.h ${CMAKE_CURRENT_SOURCE_DIR}/src/**.inl)
-
-# add platform specific flags
-if(WIN32)
-    file(GLOB_RECURSE PLATFORMSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows/**.cpp ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows/**.h)
-elseif(LINUX)
-    file(GLOB_RECURSE PLATFORMSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/platform/linuxbsd/**.cpp ${CMAKE_CURRENT_SOURCE_DIR}/platform/linuxbsd/**.h)
-endif()
-
-add_executable(${PROJECT_NAME} ${EngineSources} ${PLATFORMSOURCES})
-
-# add platform specific include directories
-if(WIN32)
-    target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows)
-elseif(LINUX)
-    target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/platform/linuxbsd)
-endif()
+add_subdirectory(deps)
+add_subdirectory(platform)
+add_subdirectory(src)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
