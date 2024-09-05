@@ -1,5 +1,7 @@
 set(EngineSources)
 
+include(Utils)
+
 function(GroupSources curdir sources)
     foreach(source ${${sources}})
         file(RELATIVE_PATH relative_file ${curdir} ${source})
@@ -12,3 +14,5 @@ endfunction()
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR}/src EngineSources)
 
 file(GLOB_RECURSE EngineSources ${CMAKE_CURRENT_SOURCE_DIR}/src/**.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/**.h ${CMAKE_CURRENT_SOURCE_DIR}/src/**.inl)
+
+group_sources(EngineSources)
